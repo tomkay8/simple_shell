@@ -1,0 +1,63 @@
+#include "simple_shell.h"
+
+int main()
+{
+    char command[MAX_COMMAND_LENGTH];
+    int status;
+
+    while (1)
+    {
+        /* Display the prompt */
+        write(1, "$ ", 2);
+
+        if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
+        {
+            /* Check for end of file (Ctrl+D) */
+            write(1, "\n", 1);
+            break;
+        }
+
+        if (command[strlen(command) - 1] == '\n')
+        {
+            /* Remove the trailing newline character */
+            command[strlen(command) - 1] = '\0';
+        }
+
+        if (strcmp(command, "exit") == 0)
+        {
+            /* Handle the exit command */
+            break;
+        }
+        else if (strcmp(command, "env") == 0)
+        {
+            /* Handle the env command */
+            print_environment();
+        }
+        else
+        {
+            execute_command(command, &status); /* Call the function with the status variable */
+        }
+    }
+
+    return 0;
+}
+
+void execute_command(char *command, int *status)
+{
+    // The rest of the execute_command function remains unchanged
+    // ...
+}
+
+void print_environment()
+{
+    // Get the environment variables from the 'environ' variable
+    extern char **environ;
+    char **env = environ;
+
+    while (*env)
+    {
+        write(1, *env, strlen(*env));
+        write(1, "\n", 1);
+        env++;
+    }
+}
