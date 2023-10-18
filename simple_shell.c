@@ -68,4 +68,5 @@ void execute_command(char *command, int *status)
 	{
 		wait(status); /* Wait for the child process to finish */
 	}
+	free(args[0]);
 }
