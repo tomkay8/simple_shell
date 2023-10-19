@@ -1,17 +1,16 @@
 #ifndef SIMPLE_SHELL_H
 #define SIMPLE_SHELL_H
 
-/* header files */
-#include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
+#include <stddef.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define MAX_COMMAND_LENGTH 100
-#define MAX_ARGUMENTS 10
+/* Function to execute a command */
+int execute_command(const char *command);
 
-void execute_command(char *command, int *status);
+/* Other function prototypes can be added here */
 
-#endif /* SIMPLE_SHELL_H */
+#endif
