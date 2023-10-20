@@ -9,10 +9,9 @@
  */
 int main(void)
 {
-	char *buffer = NULL;
+	char *error, *buffer = NULL;
 	size_t bufsize = 0;
 	ssize_t nread;
-	char *error; /* Declare error variable here*/
 
 	while (1)
 	{
@@ -38,15 +37,16 @@ int main(void)
 		{
 			buffer[nread - 1] = '\0';
 		}
-
-		/* Execute the command*/
-		if (execute_command(buffer) == -1)
+		if (isatty(STDIN_FILENO))
 		{
-			error = "Command not found\n"; /* Assign value here*/
-			write(STDOUT_FILENO, error, 18);
+			/* Execute the command*/
+			if (execute_command(buffer) == -1)
+			{
+				error = "Command not found\n"; /* Assign value here*/
+				write(STDOUT_FILENO, error, 18);
+			}
 		}
 	}
-
 	free(buffer);
 	return (0);
 }

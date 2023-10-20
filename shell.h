@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 
 int execute_command(char *command);
+int isatty(int fd);
 
 #endif
 
